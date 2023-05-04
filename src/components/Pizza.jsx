@@ -1,13 +1,22 @@
 import React, {useState} from 'react'
-import { Card, Button, Row, Col } from 'react-bootstrap'
+import { Card, Button, Row, Col, Modal } from 'react-bootstrap'
 
 const Pizza = ({pizza}) => {
     const [varient, setVarient] = useState('small')
     const [quantity, setQuantity] = useState(1)
+
+
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
   return (
     <>
     <Card style={{ width: '18rem', marginTop: '30px' }}>
-      <Card.Img variant="top" src={pizza.image} style={{ height: "250px"}} />
+      <Card.Img variant="top" 
+      src={pizza.image} 
+      style={{ height: "250px", cursor: 'pointer'}} 
+      onClick={handleShow}
+      />
       <Card.Body>
         <Card.Title>{pizza.name}</Card.Title>
         <hr />
@@ -39,6 +48,35 @@ const Pizza = ({pizza}) => {
         </Row>
       </Card.Body>
     </Card>
+
+
+    <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>{pizza.name}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+            <div>
+            <Card.Img variant="top" 
+            src={pizza.image} 
+            style={{ height: "250px"}} 
+            // onClick={handleShow}
+            />
+            </div>
+            <div>
+                <h5>Description :</h5>
+                <h6>{pizza.description}</h6>
+            </div>
+        </Modal.Body>
+
+        {/* <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleClose}>
+            Save Changes
+          </Button>
+        </Modal.Footer> */}
+      </Modal>
     </>
   )
 }
