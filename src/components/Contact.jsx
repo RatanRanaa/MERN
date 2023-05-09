@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Row, Col, Table, Image } from 'react-bootstrap'
+import { Container, Row, Col, Image } from 'react-bootstrap'
 import { FiPhoneCall } from 'react-icons/fi'
 import { ImMobile } from 'react-icons/im'
 import { AiOutlineMail } from 'react-icons/ai'
