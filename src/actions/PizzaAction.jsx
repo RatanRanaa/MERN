@@ -1,4 +1,4 @@
-// import axios form "axios"
+import axios from "axios"
 
 export const getAllPizzas = () => async (dispatch) => {
     dispatch({ type: "GET_PIZZAS_REQUEST"});
