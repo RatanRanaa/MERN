@@ -1,10 +1,14 @@
 import React from 'react'
-import { Container, Row, Col } from 'react-bootstrap'
-import { useSelector} from 'react-redux'
+import { Container, Row, Col, Button } from 'react-bootstrap'
+import { useSelector, useDispatch} from 'react-redux'
+import { FaPlusCircle, FaMinusCircle, FaTrash } from 'react-icons/fa'
+import { addToCart, deleteFromCart } from '../actions/CartAction'
 
 const CartScreen = () => {
   const cartState = useSelector(state => state.CartReducer)
   const cartItems = cartState.cartItems
+  const dispatch = useDispatch()
+  const subTotal = cartItems.reduce((x, item) => x + item.price,0)
   return (
     <Container>
         <Row>
@@ -14,15 +18,51 @@ const CartScreen = () => {
                   {cartItems.map(item => (
                     <>
                     <Col md={7}>
-                      <h4>{item.name}</h4>
+                      <h5>{item.name} [{item.varient}]</h5>
+                      <h6>
+                        {""}
+                        Price : {item.quantity} X {item.prices[0][item.varient]} ={" "} {item.price}
+                      </h6>
+                      <h6>
+                        Quantity :&nbsp;
+                        <FaMinusCircle 
+                        className="text-danger" 
+                        style={{cursor: "pointer"}}
+                        onClick={() => {dispatch(
+                          addToCart(item, item.quantity - 1, item.varient)
+                        )}}
+                        /> &nbsp;
+                        {item.quantity} &nbsp;
+                        <FaPlusCircle className="text-success"
+                        style={{cursor: "pointer"}}
+                        onClick={() => {dispatch(
+                          addToCart(item, item.quantity + 1, item.varient)
+                        )}}
+                        />
+                      </h6>
                     </Col>
-                    <Col md={5}></Col>
+                    <Col md={5}>
+                      <img src={item.image} alt={item.name}
+                      style={{width: "80px", height: "80px"}}
+                      />
+                      <FaTrash
+                      className="text-danger" 
+                      style={{cursor: "pointer", marginLeft: "20px"}}
+                      onClick={() => {dispatch(
+                      deleteFromCart(item)
+                      )}}
+                      />
+                    </Col>
+                    <hr />
                     </>
                   ))}
                 </Row>
             </Col>
-            <Col md={6}>
+            <Col md={4}>
                 <h1>Payment Info</h1>
+                <h4>Sub Total</h4>
+                <h4> RS : {subTotal} /-</h4>
+                <Button>Checkout</Button>
             </Col>
         </Row>
     </Container>
