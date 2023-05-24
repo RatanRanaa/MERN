@@ -1,10 +1,11 @@
 import React from 'react'
 import { Navbar, Nav, Container, Image } from 'react-bootstrap'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
+// import { useDispatch } from 'react-redux'
 import { LinkContainer } from 'react-router-bootstrap'
 
 const NavBar = () => {
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
   const cartState = useSelector(state => state.CartReducer)
   return (
     <>
@@ -18,6 +19,9 @@ const NavBar = () => {
           <Nav className="ms-auto">
             <LinkContainer to='/login'>
                 <Nav.Link>LogIn</Nav.Link>
+            </LinkContainer>
+            <LinkContainer to='/registe'>
+                <Nav.Link>Register</Nav.Link>
             </LinkContainer>
             <LinkContainer to='/cart'>
                 <Nav.Link>Cart {cartState.cartItems.length}</Nav.Link>
