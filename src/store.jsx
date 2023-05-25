@@ -3,17 +3,24 @@ import thunk from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import { getAllPizzaReducer} from './reducers/PizzaReducer'
 import { CartReducer } from './reducers/CartReducer'
+import { registerUserReducer, loginUserReducer } from './reducers/UserReducer'
+const cartItems = localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')) : []
 
+const currentUser = localStorage.getItem('currentUser') ? JSON.parse(localStorage.getItem('currentUser')) : null
 const rootReducer = combineReducers({
     getAllPizzaReducer:getAllPizzaReducer,
-    CartReducer:CartReducer
+    CartReducer:CartReducer,
+    registerUserReducer:registerUserReducer,
+    loginUserReducer:loginUserReducer
 })
 
-const cartItems = localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')) : []
 
 const initialState = {
     CartReducer: {
         cartItems: cartItems
+    },
+    loginUserReducer: {
+        currentUser:currentUser
     }
 }
 const middleware = [thunk]

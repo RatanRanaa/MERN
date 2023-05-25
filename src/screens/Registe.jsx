@@ -1,18 +1,23 @@
 import React, {useState} from 'react'
 import { Container, Form, Button } from 'react-bootstrap'
+import { useSelector, useDispatch } from 'react-redux'
+import { registerUser } from '../actions/UserAction'
 
 const Registe = () => {
     const [name, setName] = useState('')
     const [email, setEmail] = useState("")
     const [password, setpassword] = useState("")
     const [confrimPassword, setConfrimPassword] = useState("")
+    
+    const dispatch = useDispatch()
 
     const registerhandler = () =>{
         if (password !== confrimPassword) {
             alert('password not matched')
         } else {
             const user = { name, email, password, confrimPassword}
-            console.log(user)
+            // console.log(user)
+            dispatch(registerUser(user))
         }
     }
 
